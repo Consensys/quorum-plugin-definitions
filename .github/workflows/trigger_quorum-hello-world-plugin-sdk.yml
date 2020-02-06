@@ -1,0 +1,20 @@
+name: quorum-hello-world-plugin-sdk
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - helloworld.proto
+      - init.proto
+jobs:
+  trigger:
+    name: Trigger quorum-hello-world-plugin-sdk-go generation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fire repository_dispatch event
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          repository: jpmorganchase/quorum-hello-world-plugin-sdk-go
+          token: ${{ secrets.QUORUMBOT_PAT }}
+          event-type: proto-files-updated
+          client-payload: '{"repo": "${{ github.repository }}/${{ github.ref }}", "sha": "${{ github.sha }}"}'

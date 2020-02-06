@@ -1,0 +1,34 @@
+/*
+ * This plugin interface is to demonstrate a hello world plugin example only.
+ */
+syntax = "proto3";
+
+package proto;
+
+option go_package = "proto";
+option java_package = "com.quorum.plugin.proto";
+option java_outer_classname = "HelloWorld";
+
+/**
+ * A wrapper message to logically group other messages
+ */
+message PluginHelloWorld {
+    /*
+     * Initialization data for the plugin
+     */
+    message Request {
+        // a message to the plugin
+        string msg = 1;
+    }
+    message Response {
+        // a response message from the plugin
+        string msg = 1;
+    }
+}
+
+/*
+ * Greeting service
+ */
+service PluginGreeting {
+    rpc Greeting(PluginHelloWorld.Request) returns (PluginHelloWorld.Response);
+}
