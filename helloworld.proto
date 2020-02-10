@@ -1,5 +1,5 @@
 /*
- * This plugin interface is to demonstrate a hello world plugin example.
+ * This plugin interface is to demonstrate a hello world plugin example
  */
 syntax = "proto3";
 
