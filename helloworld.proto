@@ -13,9 +13,6 @@ option java_outer_classname = "HelloWorld";
  * A wrapper message to logically group other messages
  */
 message PluginHelloWorld {
-    /*
-     * Initialization data for the plugin
-     */
     message Request {
         // a message to the plugin
         string msg = 1;
