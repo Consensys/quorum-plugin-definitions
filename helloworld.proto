@@ -24,7 +24,7 @@ message PluginHelloWorld {
 }
 
 /*
- * Greeting remote service
+ * Greeting remote service saying Hello in English and Spanish
  */
 service PluginGreeting {
     rpc Greeting(PluginHelloWorld.Request) returns (PluginHelloWorld.Response);
