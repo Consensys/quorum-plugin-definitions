@@ -1,0 +1,20 @@
+name: quorum-account-plugin-sdk
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - account.proto
+      - init.proto
+jobs:
+  trigger:
+    name: Trigger quorum-account-plugin-sdk-go
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fire repository_dispatch event
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          repository: jpmorganchase/quorum-account-plugin-sdk-go
+          token: ${{ secrets.QUORUMBOT_PAT }}
+          event-type: proto-files-updated
+          client-payload: '{"repo": "${{ github.repository }}/${{ github.ref }}", "sha": "${{ github.sha }}"}'
