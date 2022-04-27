@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "proto";
+option java_package = "com.quorum.plugin.proto";
+option java_outer_classname = "QLightTokenManager";
+
+message TokenRefresh {
+    message Request {
+        string currentToken = 1;
+        string psi = 2;
+    }
+    message Response {
+        string token = 1;
+    }
+}
+
+message PluginQLightTokenManager {
+    message Request {
+    }
+    message Response {
+        int32 refreshAnticipationInMillisecond = 1;
+    }
+}
+
+service PluginQLightTokenRefresher {
+    rpc PluginQLightTokenManager(PluginQLightTokenManager.Request) returns (PluginQLightTokenManager.Response);
+    rpc TokenRefresh(TokenRefresh.Request) returns (TokenRefresh.Response);
+}
