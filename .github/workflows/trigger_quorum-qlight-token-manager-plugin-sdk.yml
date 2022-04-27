@@ -1,0 +1,27 @@
+name: quorum-qlight-token-manager-plugin-sdk
+on:
+  push:
+    branches:
+      - master
+      - rpc-security
+    paths:
+      - init.proto
+      - qlight-token-manager.proto
+      - .github/workflows/trigger_quorum-qlight-token-manager-plugin-sdk.yml
+jobs:
+  trigger:
+    name: Trigger quorum-qlight-token-manager-plugin-sdk-go generation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract current repository owner
+        run: |
+          repo=${{ github.repository }}
+          owner=${repo%/*}
+          echo "::set-env name=REPO_OWNER::$owner"
+      - name: Fire repository_dispatch event
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          repository: ${{ env.REPO_OWNER }}/quorum-qlight-token-manager-plugin-sdk-go
+          token: ${{ secrets.QUORUMBOT_PAT }}
+          event-type: proto-files-updated
+          client-payload: '{"repo": "${{ github.repository }}", "ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
